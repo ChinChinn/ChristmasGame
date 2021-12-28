@@ -24,12 +24,15 @@ public class PlayerController : MonoBehaviour
     public float ywallForce;
     public float wallJumptime;
 
+    Animator anim;
+
     Rigidbody2D rb;
 
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -53,6 +56,12 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.UpArrow) && isGrounded == true)
         {
             rb.velocity = Vector2.up * jumpForce;
+        }
+
+        if(input != 0){
+            anim.SetBool("isRunning", true);
+        }else{
+            anim.SetBool("isRunning", false);
         }
 
         isTouchingFront = Physics2D.OverlapCircle(frontCheck.position, checkRadius, whatIsGround);
